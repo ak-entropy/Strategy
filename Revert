@@ -1,0 +1,15 @@
+//@version=5
+strategy("Revert", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+rsip = input.int(title="rsi period", defval=2)
+smap= input.int(title="ma period", defval=9)
+sma1=ta.sma(close,smap)
+rsiv=ta.rsi(close,rsip)
+if rsiv<10 and close>ta.sma(close,200)
+    strategy.entry("long",strategy.long)
+if close>sma1
+    strategy.close("long")
+if rsiv>90 and close<ta.sma(close,200)
+    strategy.entry("short",strategy.short)
+if close<sma1
+    strategy.close("short")
