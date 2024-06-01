@@ -1,0 +1,9 @@
+//@version=5
+strategy("Crypto", overlay=true, default_qty_type=strategy.percent_of_equity,default_qty_value=100)
+condB= close>close[50] and close>ta.sma(close,50)
+condS=close<close[50] or close<ta.sma(close,50)
+
+if condB
+    strategy.entry("long",strategy.long)
+if condS
+    strategy.close("long")
