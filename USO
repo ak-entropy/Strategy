@@ -1,0 +1,9 @@
+//@version=5
+strategy("USO", overlay=true, default_qty_type=strategy.percent_of_equity,default_qty_value=100)
+cond1 = (high[0]<high[1] and low[0]>low[1]) or (high[1]<high[2] and low[1]>low[2]) or (high[2]<high[3] and low[2]>low[3])
+checkB = close>close[50]
+checkS = close<close[50] 
+if cond1 and checkB
+    strategy.entry("long",strategy.long)
+if cond1 and checkS
+    strategy.entry("short",strategy.short)
