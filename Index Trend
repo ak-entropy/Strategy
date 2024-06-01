@@ -1,0 +1,12 @@
+//@version=5
+strategy("Index Trend", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+fa = 57
+sa = 194
+fast=ta.sma(close,fa)
+slow = ta.sma(close,sa)
+fastma=fast>slow
+slowma=fast<slow
+if fastma
+    strategy.entry("LONG",strategy.long)
+if slowma
+    strategy.close("LONG")
