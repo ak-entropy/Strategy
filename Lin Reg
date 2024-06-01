@@ -1,0 +1,23 @@
+//@version=5
+strategy("Linear Regression", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100, initial_capital=5000)
+
+// Calculate the linear regression line
+length = 20
+source = close
+linreg = ta.linreg(source, length, 0)
+
+// Determine entry signals
+
+if close<linreg and close>ta.sma(close,200)
+    strategy.entry("Long", strategy.long)
+
+if close>linreg and close<ta.sma(close,200)
+    strategy.entry("Short",strategy.short)
+
+
+if close>linreg and close[1]>linreg and close[2]>linreg
+    strategy.close("Long")
+if close<linreg 
+    strategy.close("Short")
+
+plot(linreg)
